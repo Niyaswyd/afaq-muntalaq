@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AFĀQ × MUNTALAQ
 
-## Getting Started
+A responsive event website for MUNTALAQ, ADSA's seven-day higher studies camp for SUFFA students. The visual identity pairs emerald and champagne gold with an original Islamic-inspired hero illustration. Official information remains configurable and unconfirmed details are presented as placeholders.
 
-First, run the development server:
+## Stack
+
+- Next.js App Router, React and TypeScript
+- Tailwind CSS 4 (with a custom CSS design system)
+- Framer Motion, Lucide React
+- React Hook Form and Zod
+
+## Run locally
+
+Requirements: Node.js 20.9 or later and npm.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run build
+npm start
+```
 
-## Learn More
+## Configure event and site content
 
-To learn more about Next.js, take a look at the following resources:
+- `src/config/site.ts` is the central source for branding, camp details, contact placeholders, event date and timezone.
+- Set `eventDate` to an ISO date/time string with its explicit UTC offset when the official start time is confirmed, for example `2027-01-15T09:00:00+05:30`. Keep it `null` until then; the countdown will show “DATE TO BE ANNOUNCED”.
+- Set `eventTimezone` to the official IANA timezone label for display (currently `Asia/Kolkata`).
+- Edit `schedule`, `sessions`, `speakers`, `resources`, `announcements` and `gallery` in `src/data/content.ts`. The current schedule and profile entries are explicitly illustrative/placeholders.
+- Replace `public/assets/hero/hero-scene.svg` to change the original hero artwork. Gallery and speaker tiles are designed as placeholders until approved images are available.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Registration and backend
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The registration and contact forms validate input in preview mode only. They do not send or store information, and the interface clearly communicates that behavior. To connect a backend:
 
-## Deploy on Vercel
+1. Add a server-side route or server action for the submission.
+2. Validate the received payload again using the schemas in `src/lib/validations.ts`.
+3. Configure provider credentials through environment variables; never expose secrets in client code.
+4. Replace the preview submit handlers in `src/components/interactive.tsx` with calls to that server endpoint and keep pending, success and failure states explicit.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+No database, admin login, API credentials or external registration service is configured by default.
