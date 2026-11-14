@@ -11,7 +11,6 @@ const navigation = [
   ["Camp Details", "/about"],
   ["Schedule", "/schedule"],
   ["Resources", "/resources"],
-  ["Gallery", "/gallery"],
   ["Contact", "/contact"],
 ] as const;
 

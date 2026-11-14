@@ -10,7 +10,6 @@ const pageDetails: Record<string, { title: string; description: string }> = {
   sessions: { title: "Sessions & Activities", description: "Discover the learning sessions planned for MUNTALAQ." },
   speakers: { title: "Speakers & Mentors", description: "Speaker and mentor announcements for MUNTALAQ." },
   resources: { title: "Higher Studies Resources", description: "Explore resources for higher education, admissions and scholarships." },
-  gallery: { title: "Gallery", description: "A visual space for the AFĀQ × MUNTALAQ journey." },
   register: { title: "Registration", description: "Registration details for the MUNTALAQ Higher Studies Camp." },
   contact: { title: "Contact ADSA", description: "Contact information and messages for the MUNTALAQ organizing team." },
 };

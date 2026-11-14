@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, Bell, CalendarDays, Image as ImageIcon, UsersRound } from "lucide-react";
+import { ArrowLeft, Bell, CalendarDays, UsersRound } from "lucide-react";
 import { useEffect, useState } from "react";
-import { gallery, schedule } from "@/data/content";
+import { schedule } from "@/data/content";
 
 type AdminMessage = { id: string; name: string; email: string; message: string; createdAt: string; read: boolean };
 type AdminReply = { id: string; messageId: string; text: string; createdAt: string };
@@ -14,7 +14,6 @@ export default function AdminPage() {
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
   const [replyText, setReplyText] = useState("");
   const featuredSessions = schedule.filter((item) => item.presenter);
-  const imageCount = gallery.filter((item) => item.image).length;
 
   useEffect(() => {
     const stored = JSON.parse(window.localStorage.getItem("afaq-contact-messages") || "[]");
@@ -53,7 +52,6 @@ export default function AdminPage() {
         <section className="admin-stats" aria-label="Camp overview">
           <article className="admin-stat"><CalendarDays size={20} /><span>Schedule days</span><strong>{schedule.length}</strong></article>
           <article className="admin-stat"><UsersRound size={20} /><span>Featured presenters</span><strong>{featuredSessions.length}</strong></article>
-          <article className="admin-stat"><ImageIcon size={20} /><span>Gallery images</span><strong>{imageCount}</strong></article>
           <article className="admin-stat"><Bell size={20} /><span>Contact messages</span><strong>{messages.length}</strong></article>
         </section>
 

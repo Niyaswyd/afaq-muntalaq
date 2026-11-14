@@ -13,7 +13,6 @@ import { announcements, objectives, schedule, sessions } from "@/data/content";
 import {
   ContactForm,
   Countdown,
-  GalleryBrowser,
   RegistrationForm,
   ReplyInbox,
   DarsDirectory,
@@ -172,19 +171,6 @@ function UpdatesPreview() {
   );
 }
 
-function GalleryPreview() {
-  return (
-    <section className="section gallery-preview-section">
-      <div className="gallery-preview-heading"><SectionHeading kicker="A glimpse of the journey" title="A gallery of possibilities" /><Link className="text-link" href="/gallery">Explore gallery <ArrowRight size={16} /></Link></div>
-      <div className="gallery-preview-tiles">
-        <Link href="/gallery" className="preview-tile preview-wide"><span>✦</span><b>Beyond boundaries</b></Link>
-        <Link href="/gallery" className="preview-tile preview-tall"><span>✦</span><b>A new horizon</b></Link>
-        <Link href="/gallery" className="preview-tile preview-small"><span>✦</span><b>Learn together</b></Link>
-      </div>
-    </section>
-  );
-}
-
 function RegistrationCallout() {
   return (
     <section className="registration-callout">
@@ -204,7 +190,6 @@ export function HomePage() {
       <SchedulePreview />
       <SessionsPreview />
       <UpdatesPreview />
-      <GalleryPreview />
       <RegistrationCallout />
     </>
   );
@@ -217,7 +202,6 @@ const pageInfo: Record<string, { title: string; eyebrow: string; description: st
   sessions: { title: "Learn. Connect. Discover.", eyebrow: "Sessions & activities", description: "A preview of session formats planned for MUNTALAQ. Individual session details are not yet confirmed." },
   speakers: { title: "Voices to Inspire.", eyebrow: "Speakers & mentors", description: "Speaker and mentor details will be shared here once confirmed by the organizing team." },
   resources: { title: "Your Resource Hub.", eyebrow: "Explore further", description: "A growing library of higher studies information, admissions guidance and opportunities." },
-  gallery: { title: "A Glimpse of the Journey.", eyebrow: "Gallery", description: "A visual collection of learning, mentorship, reflection and fellowship." },
   register: { title: "Your Next Chapter Starts Here.", eyebrow: "Registration", description: "Official registration details are coming soon. This preview form does not submit or store personal information." },
   contact: { title: "We’d Love to Hear from You.", eyebrow: "Contact ADSA", description: "Contact information will be added here when confirmed. You can preview the form, but messages are not sent." },
 };
@@ -271,10 +255,6 @@ function ResourcesPage() {
   return <section className="content-section dars-directory-section"><DarsDirectory /></section>;
 }
 
-function GalleryPage() {
-  return <section className="content-section"><GalleryBrowser /></section>;
-}
-
 function RegisterPage() {
   return <section className="content-section registration-content"><div className="registration-intro"><span className="eyebrow">Start with a first step</span><h2>Take the next step<br /><em>when you’re ready.</em></h2><p>Registration is not open yet. Official details will be announced by ADSA.</p></div><RegistrationForm /></section>;
 }
@@ -289,7 +269,6 @@ const pageComponents: Record<string, () => ReactNode> = {
   schedule: SchedulePage,
   sessions: SessionsPage,
   resources: ResourcesPage,
-  gallery: GalleryPage,
   register: RegisterPage,
   contact: ContactPage,
 };

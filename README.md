@@ -33,8 +33,8 @@ npm start
 - `src/config/site.ts` is the central source for branding, camp details, contact placeholders, event date and timezone.
 - Set `eventDate` to an ISO date/time string with its explicit UTC offset when the official start time is confirmed, for example `2027-01-15T09:00:00+05:30`. Keep it `null` until then; the countdown will show “DATE TO BE ANNOUNCED”.
 - Set `eventTimezone` to the official IANA timezone label for display (currently `Asia/Kolkata`).
-- Edit `schedule`, `sessions`, `speakers`, `resources`, `announcements` and `gallery` in `src/data/content.ts`. The current schedule and profile entries are explicitly illustrative/placeholders.
-- Replace `public/assets/hero/hero-scene.svg` to change the original hero artwork. Gallery and speaker tiles are designed as placeholders until approved images are available.
+- Edit `schedule`, `sessions`, `speakers`, `resources` and `announcements` in `src/data/content.ts`. The current schedule and profile entries are explicitly illustrative/placeholders.
+- Replace `public/assets/hero/hero-scene.svg` to change the original hero artwork. Speaker tiles are designed as placeholders until approved images are available.
 
 ## Registration and backend
 

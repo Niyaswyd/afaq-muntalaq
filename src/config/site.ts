@@ -36,7 +36,6 @@ export const navigation = [
   { label: "Schedule", href: "/schedule" },
   { label: "Sessions", href: "/sessions" },
   { label: "Resources", href: "/resources" },
-  { label: "Gallery", href: "/gallery" },
   { label: "Contact", href: "/contact" },
   { label: "The Meaning", href: "/meaning" },
 ];

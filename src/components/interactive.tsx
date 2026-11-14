@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
-  ArrowLeft,
   ArrowRight,
   Check,
   ChevronDown,
@@ -16,7 +15,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
-import { darsDirectory, gallery, resources, schedule } from "@/data/content";
+import { darsDirectory, resources, schedule } from "@/data/content";
 import { site, navigation } from "@/config/site";
 import {
   type ContactValues,
@@ -123,7 +122,6 @@ export function Footer() {
           <Link href="/about">About the camp</Link>
           <Link href="/schedule">Schedule</Link>
           <Link href="/resources">Resources</Link>
-          <Link href="/gallery">Gallery</Link>
           <Link href="/meaning">The Meaning</Link>
         </div>
         <div className="footer-links">
@@ -310,56 +308,6 @@ export function DarsDirectory() {
   const [query, setQuery] = useState("");
   const filtered = darsDirectory.filter(([name, person, phone]) => `${name} ${person} ${phone}`.toLowerCase().includes(query.toLowerCase()));
   return <section className="dars-directory"><div className="dars-heading"><span className="eyebrow">SUFFA Dars institutions</span><h2>41 affiliated Dars</h2><p>Find a Dars and contact the listed coordinator.</p></div><label className="search-field"><span className="sr-only">Search Dars</span><input onChange={(event) => setQuery(event.target.value)} placeholder="Search Dars, coordinator or number..." value={query} /></label><div className="dars-grid">{filtered.map(([name, person, phone], index) => <article className="dars-card" key={`${name}-${index}`}><span className="dars-number">{String(index + 1).padStart(2, "0")}</span><h3>{name}</h3><p>{person}</p>{phone ? <a href={`tel:${phone.replace(/\D/g, "")}`}>{phone}</a> : <span className="dars-pending">Number to be announced</span>}</article>)}</div>{filtered.length === 0 && <p className="empty-state">No Dars match your search.</p>}</section>;
-}
-
-export function GalleryBrowser() {
-  const [category, setCategory] = useState("All");
-  const [active, setActive] = useState<number | null>(null);
-  const categories = ["All"];
-  const items = gallery.map((item, index) => ({ ...item, originalIndex: index })).filter((item) => category === "All" || item.category === category);
-  const activeItem = active === null ? null : gallery[active];
-
-  useEffect(() => {
-    if (active === null) return;
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setActive(null);
-      if (event.key === "ArrowRight") setActive((index) => index === null ? null : (index + 1) % gallery.length);
-      if (event.key === "ArrowLeft") setActive((index) => index === null ? null : (index - 1 + gallery.length) % gallery.length);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [active]);
-
-  return (
-    <>
-      <div className="filter-row gallery-filters">
-        {categories.map((item) => <button className={`filter-chip${category === item ? " chosen" : ""}`} key={item} onClick={() => setCategory(item)} type="button">{item}</button>)}
-      </div>
-      <div className="gallery-grid">
-        {items.map((item) => (
-            <button className={`gallery-tile tone-${item.tone}`} key={item.title} onClick={() => setActive(item.originalIndex)} style={item.image ? { backgroundImage: `linear-gradient(180deg, transparent 35%, rgba(4,31,30,.78)), url(${item.image})`, backgroundPosition: "center, center", backgroundSize: "cover, contain", backgroundRepeat: "no-repeat, no-repeat", backgroundColor: "#102f2d" } : undefined} type="button">
-            <span className="gallery-arch" aria-hidden="true">✦</span>
-            <span className="gallery-caption"><span>{item.category}</span>{item.title}</span>
-          </button>
-        ))}
-      </div>
-      <p className="notice-text">A collection of moments from learning, mentorship, reflection and fellowship.</p>
-      <AnimatePresence>
-        {activeItem && active !== null && (
-          <motion.div className="lightbox" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setActive(null)}>
-            <button aria-label="Close gallery" className="lightbox-close" onClick={() => setActive(null)} type="button"><X /></button>
-            <button aria-label="Previous image" className="lightbox-prev" onClick={(event) => { event.stopPropagation(); setActive((active - 1 + gallery.length) % gallery.length); }} type="button"><ArrowLeft /></button>
-            <div className={`lightbox-art tone-${activeItem.tone}`} onClick={(event) => event.stopPropagation()} style={activeItem.image ? { backgroundImage: `linear-gradient(180deg, transparent 35%, rgba(4,31,30,.78)), url(${activeItem.image})`, backgroundPosition: "center, center", backgroundSize: "cover, contain", backgroundRepeat: "no-repeat, no-repeat", backgroundColor: "#102f2d" } : undefined}>
-              <span className="gallery-arch" aria-hidden="true">✦</span>
-              <h3>{activeItem.title}</h3>
-              <p>AFĀQ × MUNTALAQ · {activeItem.category}</p>
-            </div>
-            <button aria-label="Next image" className="lightbox-next" onClick={(event) => { event.stopPropagation(); setActive((active + 1) % gallery.length); }} type="button"><ArrowRight /></button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
-  );
 }
 
 function FieldError({ children }: { children?: React.ReactNode }) {
