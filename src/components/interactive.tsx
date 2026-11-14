@@ -328,7 +328,10 @@ export function RegistrationForm() {
       <div className="preview-notice"><span>Preview mode</span> Registration is not connected yet. This form will not send or store your details.</div>
       <label>Full name<input autoComplete="name" {...register("fullName")} placeholder="Your full name" /><FieldError>{errors.fullName?.message}</FieldError></label>
       <label>Place<input {...register("place")} placeholder="Your place" /><FieldError>{errors.place?.message}</FieldError></label>
-      <label>Dars<input {...register("dars")} placeholder="Your Dars" /><FieldError>{errors.dars?.message}</FieldError></label>
+      <label>Dars<select {...register("dars")}>
+        <option value="">Select your Dars</option>
+        {darsDirectory.map(([name], index) => <option key={`${name}-${index}`} value={name}>{name}</option>)}
+      </select><FieldError>{errors.dars?.message}</FieldError></label>
       {result && <p className="form-result" role="status"><Check size={17} /> Preview only: your details were not sent. Official registration will open when announced.</p>}
       <button className="button button-gold form-submit" disabled={isSubmitting || result} type="submit">{isSubmitting ? "Please wait..." : result ? "Preview complete" : "Preview registration"} <ArrowRight size={16} /></button>
     </form>
