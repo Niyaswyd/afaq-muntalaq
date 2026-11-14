@@ -215,6 +215,14 @@ a { color: inherit; text-decoration: none; }
 .schedule-interactive { max-width: 1000px; margin: auto; }
 .admin-page { min-height: 100vh; padding: 72px 24px; color: var(--ink); background: var(--cream); }
 .admin-shell { max-width: 1120px; margin: auto; }
+.admin-lock-card { width: min(100%, 440px); margin: 8vh auto 0; padding: 38px; border: 1px solid var(--line); border-radius: 17px; background: #fffdf7; box-shadow: 0 15px 45px rgba(20,45,43,.07); }
+.admin-lock-card h1 { margin: 9px 0; color: var(--green); font: 36px Georgia, serif; font-weight: 400; }
+.admin-lock-card > p { margin: 0 0 25px; color: var(--muted); font: 14px/1.6 Georgia, serif; }
+.admin-lock-form { display: grid; gap: 10px; margin-bottom: 22px; }
+.admin-lock-form label { color: var(--green); font: 12px Arial, sans-serif; }
+.admin-lock-form input { min-height: 46px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); background: #fff; }
+.admin-lock-error { color: #a33d32; font: 12px Arial, sans-serif; }
+.admin-lock-form .button { justify-content: center; margin-top: 5px; }
 .admin-topbar { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 34px; }
 .admin-topbar h1 { margin: 7px 0 8px; color: var(--green); font: 42px Georgia, serif; font-weight: 400; }
 .admin-topbar p { margin: 0; color: var(--muted); font: 14px/1.6 Georgia, serif; }

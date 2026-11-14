@@ -2,13 +2,17 @@
 
 import Link from "next/link";
 import { ArrowLeft, Bell, CalendarDays, UsersRound } from "lucide-react";
-import { useEffect, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
 import { schedule } from "@/data/content";
 
 type AdminMessage = { id: string; name: string; email: string; message: string; createdAt: string; read: boolean };
 type AdminReply = { id: string; messageId: string; text: string; createdAt: string };
+const ADMIN_PASSCODE = "adsa";
 
 export default function AdminPage() {
+  const [unlocked, setUnlocked] = useState(false);
+  const [passcode, setPasscode] = useState("");
+  const [lockError, setLockError] = useState(false);
   const [messages, setMessages] = useState<AdminMessage[]>([]);
   const [replies, setReplies] = useState<AdminReply[]>([]);
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
@@ -16,12 +20,23 @@ export default function AdminPage() {
   const featuredSessions = schedule.filter((item) => item.presenter);
 
   useEffect(() => {
+    if (!unlocked) return;
     const stored = JSON.parse(window.localStorage.getItem("afaq-contact-messages") || "[]");
     setMessages(stored);
     setReplies(JSON.parse(window.localStorage.getItem("afaq-contact-replies") || "[]"));
     const markedRead = stored.map((message: { read: boolean }) => ({ ...message, read: true }));
     window.localStorage.setItem("afaq-contact-messages", JSON.stringify(markedRead));
-  }, []);
+  }, [unlocked]);
+
+  const unlockAdmin = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (passcode !== ADMIN_PASSCODE) {
+      setLockError(true);
+      return;
+    }
+    setLockError(false);
+    setUnlocked(true);
+  };
 
   const sendReply = (message: AdminMessage) => {
     const text = replyText.trim();
@@ -36,6 +51,31 @@ export default function AdminPage() {
     setReplyText("");
     setReplyingTo(null);
   };
+
+  if (!unlocked) {
+    return (
+      <main className="admin-page">
+        <section className="admin-lock-card">
+          <span className="eyebrow">ADSA · ADMIN</span>
+          <h1>Admin access</h1>
+          <p>Enter the passcode to open the admin page.</p>
+          <form className="admin-lock-form" onSubmit={unlockAdmin}>
+            <label htmlFor="admin-passcode">Passcode</label>
+            <input
+              autoComplete="current-password"
+              id="admin-passcode"
+              onChange={(event) => { setPasscode(event.target.value); setLockError(false); }}
+              type="password"
+              value={passcode}
+            />
+            {lockError && <span className="admin-lock-error" role="alert">Incorrect passcode. Try again.</span>}
+            <button className="button button-gold" type="submit">Unlock</button>
+          </form>
+          <Link className="text-link" href="/">Back to site</Link>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main className="admin-page">
