@@ -37,7 +37,7 @@ export const schedule = [
 ];
 
 export const sessions = [
-  { title: "Expert Talks", description: "Perspectives and ideas from invited guests.", icon: UsersRound },
+  { title: "Expert Talks", description: "Pathways to Knowledge by Saalim Faizy.", icon: UsersRound },
   { title: "Interactive Workshops", description: "Collaborative learning and practical activities.", icon: Sparkles },
   { title: "University Guidance", description: "An introduction to higher education pathways.", icon: GraduationCap },
   { title: "Career Counselling", description: "Explore interests, strengths and possibilities.", icon: Compass },
