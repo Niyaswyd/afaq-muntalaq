@@ -110,9 +110,9 @@ export const announcements = [
 ];
 
 export const gallery = [
-  { title: "Night of fellowship", category: "Community", tone: "deep", image: "/assets/Nighttime Campfire Gathering by the Mosque.png" },
-  { title: "A moment of dua", category: "Faith", tone: "olive", image: "/assets/Elderly Scholar Leading Nighttime Dua.png" },
-  { title: "Learning together", category: "Community", tone: "green", image: "/assets/Dars Camp Outdoor Study Circle.png" },
-  { title: "Voices of guidance", category: "Learning", tone: "sunset", image: "/assets/Dars Camp Lecture with Scholar.png" },
   { title: "A place to learn", category: "Spaces", tone: "cream", image: "/assets/a8ea0d78db1dda7ee1ae5a4807dfd9c8.jpg" },
+  { title: "Voices of guidance", category: "Learning", tone: "sunset", image: "/assets/Dars Camp Lecture with Scholar.png" },
+  { title: "Learning together", category: "Community", tone: "green", image: "/assets/Dars Camp Outdoor Study Circle.png" },
+  { title: "A moment of dua", category: "Faith", tone: "olive", image: "/assets/Elderly Scholar Leading Nighttime Dua.png" },
+  { title: "Night of fellowship", category: "Community", tone: "deep", image: "/assets/Nighttime Campfire Gathering by the Mosque.png" },
 ];

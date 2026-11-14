@@ -337,19 +337,19 @@ export function GalleryBrowser() {
       </div>
       <div className="gallery-grid">
         {items.map((item) => (
-            <button className={`gallery-tile tone-${item.tone}`} key={item.title} onClick={() => setActive(item.originalIndex)} style={item.image ? { backgroundImage: `linear-gradient(180deg, transparent 35%, rgba(4,31,30,.78)), url(${item.image})`, backgroundPosition: "center", backgroundSize: "90% auto", backgroundRepeat: "no-repeat" } : undefined} type="button">
+            <button className={`gallery-tile tone-${item.tone}`} key={item.title} onClick={() => setActive(item.originalIndex)} style={item.image ? { backgroundImage: `linear-gradient(180deg, transparent 35%, rgba(4,31,30,.78)), url(${item.image})`, backgroundPosition: "center", backgroundSize: "cover" } : undefined} type="button">
             <span className="gallery-arch" aria-hidden="true">✦</span>
             <span className="gallery-caption"><span>{item.category}</span>{item.title}</span>
           </button>
         ))}
       </div>
-      <p className="notice-text">Gallery placeholders — camp photographs will be added after the event.</p>
+      <p className="notice-text">A collection of moments from learning, mentorship, reflection and fellowship.</p>
       <AnimatePresence>
         {activeItem && active !== null && (
           <motion.div className="lightbox" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setActive(null)}>
             <button aria-label="Close gallery" className="lightbox-close" onClick={() => setActive(null)} type="button"><X /></button>
             <button aria-label="Previous image" className="lightbox-prev" onClick={(event) => { event.stopPropagation(); setActive((active - 1 + gallery.length) % gallery.length); }} type="button"><ArrowLeft /></button>
-            <div className={`lightbox-art tone-${activeItem.tone}`} onClick={(event) => event.stopPropagation()} style={activeItem.image ? { backgroundImage: `linear-gradient(180deg, transparent 35%, rgba(4,31,30,.78)), url(${activeItem.image})`, backgroundPosition: "center", backgroundSize: "90% auto", backgroundRepeat: "no-repeat" } : undefined}>
+            <div className={`lightbox-art tone-${activeItem.tone}`} onClick={(event) => event.stopPropagation()} style={activeItem.image ? { backgroundImage: `linear-gradient(180deg, transparent 35%, rgba(4,31,30,.78)), url(${activeItem.image})`, backgroundPosition: "center", backgroundSize: "cover" } : undefined}>
               <span className="gallery-arch" aria-hidden="true">✦</span>
               <h3>{activeItem.title}</h3>
               <p>AFĀQ × MUNTALAQ · {activeItem.category}</p>

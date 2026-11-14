@@ -217,7 +217,7 @@ const pageInfo: Record<string, { title: string; eyebrow: string; description: st
   sessions: { title: "Learn. Connect. Discover.", eyebrow: "Sessions & activities", description: "A preview of session formats planned for MUNTALAQ. Individual session details are not yet confirmed." },
   speakers: { title: "Voices to Inspire.", eyebrow: "Speakers & mentors", description: "Speaker and mentor details will be shared here once confirmed by the organizing team." },
   resources: { title: "Your Resource Hub.", eyebrow: "Explore further", description: "A growing library of higher studies information, admissions guidance and opportunities." },
-  gallery: { title: "A Glimpse of the Journey.", eyebrow: "Gallery", description: "A visual space for the MUNTALAQ journey. Official camp photographs will be added after the event." },
+  gallery: { title: "A Glimpse of the Journey.", eyebrow: "Gallery", description: "A visual collection of learning, mentorship, reflection and fellowship." },
   register: { title: "Your Next Chapter Starts Here.", eyebrow: "Registration", description: "Official registration details are coming soon. This preview form does not submit or store personal information." },
   contact: { title: "We’d Love to Hear from You.", eyebrow: "Contact ADSA", description: "Contact information will be added here when confirmed. You can preview the form, but messages are not sent." },
 };
