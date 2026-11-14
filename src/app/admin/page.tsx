@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, Bell, CalendarDays, UsersRound } from "lucide-react";
+import { ArrowLeft, Bell, CalendarDays, Download, UsersRound } from "lucide-react";
 import { type FormEvent, useEffect, useState } from "react";
 import { schedule } from "@/data/content";
 
 type AdminMessage = { id: string; name: string; email: string; message: string; createdAt: string; read: boolean };
 type AdminReply = { id: string; messageId: string; text: string; createdAt: string };
+type AdminRegistration = { id: string; fullName: string; place: string; dars: string; createdAt: string };
 const ADMIN_PASSCODE = "adsa";
 
 export default function AdminPage() {
@@ -14,6 +15,7 @@ export default function AdminPage() {
   const [passcode, setPasscode] = useState("");
   const [lockError, setLockError] = useState(false);
   const [messages, setMessages] = useState<AdminMessage[]>([]);
+  const [registrations, setRegistrations] = useState<AdminRegistration[]>([]);
   const [replies, setReplies] = useState<AdminReply[]>([]);
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
   const [replyText, setReplyText] = useState("");
@@ -23,10 +25,30 @@ export default function AdminPage() {
     if (!unlocked) return;
     const stored = JSON.parse(window.localStorage.getItem("afaq-contact-messages") || "[]");
     setMessages(stored);
+    const refreshRegistrations = () => setRegistrations(JSON.parse(window.localStorage.getItem("afaq-registrations") || "[]"));
+    refreshRegistrations();
+    window.addEventListener("afaq-registrations-updated", refreshRegistrations);
+    window.addEventListener("storage", refreshRegistrations);
     setReplies(JSON.parse(window.localStorage.getItem("afaq-contact-replies") || "[]"));
     const markedRead = stored.map((message: { read: boolean }) => ({ ...message, read: true }));
     window.localStorage.setItem("afaq-contact-messages", JSON.stringify(markedRead));
+    return () => {
+      window.removeEventListener("afaq-registrations-updated", refreshRegistrations);
+      window.removeEventListener("storage", refreshRegistrations);
+    };
   }, [unlocked]);
+
+  const downloadRegistrations = () => {
+    const quote = (value: string) => `"${value.replaceAll('"', '""')}"`;
+    const rows = [["Name", "Place", "Dars", "Registered at"], ...registrations.map((item) => [item.fullName, item.place, item.dars, new Date(item.createdAt).toLocaleString()])];
+    const csv = `\uFEFF${rows.map((row) => row.map(quote).join(",")).join("\r\n")}`;
+    const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "afaq-registrations.csv";
+    link.click();
+    URL.revokeObjectURL(url);
+  };
 
   const unlockAdmin = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -93,6 +115,13 @@ export default function AdminPage() {
           <article className="admin-stat"><CalendarDays size={20} /><span>Schedule days</span><strong>{schedule.length}</strong></article>
           <article className="admin-stat"><UsersRound size={20} /><span>Featured presenters</span><strong>{featuredSessions.length}</strong></article>
           <article className="admin-stat"><Bell size={20} /><span>Contact messages</span><strong>{messages.length}</strong></article>
+          <article className="admin-stat"><UsersRound size={20} /><span>Registrations</span><strong>{registrations.length}</strong></article>
+        </section>
+
+        <section className="admin-panel">
+          <div className="admin-panel-heading"><div><span className="eyebrow">Registration list</span><h2>Registered participants</h2></div><button className="admin-reply" disabled={registrations.length === 0} onClick={downloadRegistrations} type="button"><Download size={14} /> Download CSV</button></div>
+          <p className="admin-empty" style={{ marginBottom: 16 }}>Saved on this device only. Use Download CSV to save a file.</p>
+          {registrations.length === 0 ? <p className="admin-empty">No registrations saved yet.</p> : <div className="admin-table-wrap"><table className="admin-table"><thead><tr><th>Name</th><th>Place</th><th>Dars</th><th>Registered</th></tr></thead><tbody>{registrations.map((item) => <tr key={item.id}><td>{item.fullName}</td><td>{item.place}</td><td>{item.dars}</td><td>{new Date(item.createdAt).toLocaleString()}</td></tr>)}</tbody></table></div>}
         </section>
 
         <section className="admin-panel">
